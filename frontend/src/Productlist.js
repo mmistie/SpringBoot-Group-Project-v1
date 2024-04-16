@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useCart } from './CartContext';
 
-function Productlist() {
+function ProductList() {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -17,13 +19,20 @@ function Productlist() {
     fetchProducts();
   }, []);
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+  };
+
   return (
     <div>
       <h1>Product List</h1>
       <ul>
         {products.map(product => (
           <li key={product.id}>
-            <a href={`/products/${product.id}`}>{product.name}</a>
+            <div>
+              <a href={`/products/${product.id}`}>{product.name}</a>
+              <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+            </div>
           </li>
         ))}
       </ul>
@@ -31,4 +40,4 @@ function Productlist() {
   );
 }
 
-export default Productlist;
+export default ProductList;
