@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  product-service:
+    build: ./product-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - mysql-product
+
+  mysql-product:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'productdb'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'sUdarsh@11'
+      MYSQL_ROOT_PASSWORD: 'sUdarsh@11'
+    ports:
+      - '3306:3306'
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - mysql-order
+
+  mysql-order:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'orderdb'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'sUdarsh@11'
+      MYSQL_ROOT_PASSWORD: 'sUdarsh@11'
+    ports:
+      - '3307:3306'
+
