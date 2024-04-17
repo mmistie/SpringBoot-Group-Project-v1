@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useCart } from './CartContext';
-import './App.css'; // Import your CSS file for styling
+import './App.css'; 
 
 function Checkout() {
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, removeFromCart } = useCart();
   const [error, setError] = useState(null);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [quantities, setQuantities] = useState({});
+
+  const TAX_RATE = 0.13; // 13% tax rate
 
   const handlePlaceOrder = async () => {
     try {
@@ -15,27 +18,46 @@ function Checkout() {
         return;
       }
 
+      const orderItems = cart.map(product => ({
+        product: {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          stock: product.stock,
+          imageId: product.imageId
+        },
+        quantity: quantities[product.id] || product.quantity
+      }));
+
       const orderData = {
         orderDate: new Date(),
         totalPrice: calculateTotalPrice(cart),
-        orderItems: cart
+        orderItems: orderItems
       };
 
       const response = await axios.post('http://localhost:8081/orders', orderData);
       console.log('Order placed:', response.data);
       clearCart();
-      setOrderPlaced(true); // Set orderPlaced to true after successful order placement
+      setOrderPlaced(true);
     } catch (error) {
       console.error('Error placing order:', error);
     }
   };
 
   const calculateTotalPrice = (cart) => {
-    let totalPrice = 0;
-    cart.forEach((product) => {
-      totalPrice += product.price * product.quantity;
-    });
-    return totalPrice;
+    return cart.reduce((total, product) => total + ((quantities[product.id] || product.quantity) * product.price), 0);
+  };
+
+  const calculateTax = (totalPrice) => {
+    return totalPrice * TAX_RATE;
+  };
+
+  const handleQuantityChange = (productId, quantity) => {
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [productId]: quantity
+    }));
   };
 
   return (
@@ -50,9 +72,25 @@ function Checkout() {
             <h2>Cart Items</h2>
             <ul>
               {cart.map((product, index) => (
-                <li key={index}>{product.name} - Quantity: {product.quantity}</li>
+                <li key={index} className="cart-item">
+                  <div className="product-details">
+                    <div className="product-name">{product.name}</div>
+                    <div className="quantity-control">
+                      <button className="quantity-btn" onClick={() => handleQuantityChange(product.id, (quantities[product.id] || product.quantity) - 1)}>-</button>
+                      <span>{quantities[product.id] || product.quantity}</span>
+                      <button className="quantity-btn" onClick={() => handleQuantityChange(product.id, (quantities[product.id] || product.quantity) + 1)}>+</button>
+                    </div>
+                  </div>
+                  <div className="price">Price: ${product.price.toFixed(2)}</div>
+                  <button className="remove-btn" onClick={() => removeFromCart(product.id)}>Remove</button>
+                </li>
               ))}
             </ul>
+          </div>
+          <div className="totals">
+            <div className="subtotal">Subtotal: ${calculateTotalPrice(cart).toFixed(2)}</div>
+            <div className="tax">Tax (13%): ${calculateTax(calculateTotalPrice(cart)).toFixed(2)}</div>
+            <div className="total">Total: ${(calculateTotalPrice(cart) + calculateTax(calculateTotalPrice(cart))).toFixed(2)}</div>
           </div>
           <button className="place-order-btn" onClick={handlePlaceOrder}>Place Order</button>
         </div>

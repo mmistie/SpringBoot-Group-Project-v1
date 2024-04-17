@@ -1,6 +1,7 @@
 package org.meghna.orders.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.meghna.orders.model.OrderItem;
 import org.meghna.orders.model.order;
 import org.meghna.orders.repository.OrderRepository;
 import org.meghna.products.model.product;
@@ -22,23 +23,27 @@ public class orderService {
     private ProductRepository productRepository;
 
     public order save(order order) {
-                BigDecimal totalPrice = BigDecimal.ZERO;
-                for (product product : order.getOrderItems()) {
-                       totalPrice = totalPrice.add(product.getPrice().multiply(BigDecimal.valueOf(product.getStock())));
-                   }
-               order.setTotalPrice(totalPrice);
-                return orderRepository.save(order);
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (OrderItem orderItem : order.getOrderItems()) {
+            BigDecimal itemTotalPrice = orderItem.getProduct().getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()));
+            totalPrice = totalPrice.add(itemTotalPrice);
+        }
+        order.setTotalPrice(totalPrice);
+        return orderRepository.save(order);
     }
-
-    public void deleteById(Long id) {
-        orderRepository.deleteById(id);
-    }
-
     public order findById(Long id) {
-        return orderRepository.findById(id).orElse(null);
+        order order = orderRepository.findById(id).orElse(null);
+        if (order != null) {
+            order.getOrderItems().size(); // Trigger lazy loading of order items
+        }
+        return order;
     }
 
     public List<order> findAll() {
-        return (List<order>) orderRepository.findAll();
+        List<order> orders = orderRepository.findAll();
+        for (order order : orders) {
+            order.getOrderItems().size(); // Trigger lazy loading of order items
+        }
+        return orders;
     }
 }

@@ -1,3 +1,89 @@
+/*  checkout*/
+.checkout-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.order-placed {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.checkout-details {
+  margin-top: 20px;
+}
+
+.cart-item {
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.price {
+  margin-top: 5px;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.totals {
+  margin-top: 20px;
+}
+
+.subtotal,
+.tax,
+.total {
+  margin-bottom: 5px;
+}
+
+/*  checkout ends */
+
+
+
 .product-detail {
   margin: 20px;
   padding: 20px;
@@ -64,9 +150,13 @@
   background-color: #0056b3;
 }
 
+/*  Product List */
+/* ProductList.css */
 
 .product-list-container {
-  margin: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .product-list {
@@ -75,36 +165,68 @@
 }
 
 .product-item {
-  margin-bottom: 20px;
   border: 1px solid #ccc;
+  margin-bottom: 20px;
   padding: 10px;
-  border-radius: 5px;
 }
 
 .product-details {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.product-name {
-  text-decoration: none;
-  color: #333;
+.product-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
 }
 
-.add-to-cart-btn {
+.product-info {
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.quantity-btn {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.quantity-input {
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+}
+
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
 }
 
 .add-to-cart-btn:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
 
+/* Productlist ends */
 /* Header CSS */
 
 header {

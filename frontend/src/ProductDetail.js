@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './App.css'; // Import your CSS file for styling
+import './App.css'; 
 
 function ProductDetail() {
   const { id } = useParams();
@@ -29,7 +29,7 @@ function ProductDetail() {
   }
 
   if (error) {
-    return <div className="error">{error}</div>; // Apply error style
+    return <div className="error">{error}</div>; 
   }
 
   return (
@@ -38,6 +38,7 @@ function ProductDetail() {
         <>
           <h1 className="product-name">{product.name}</h1>
           <p className="product-description">Description: {product.description}</p>
+          <p className="product-price">Price: ${product.price}</p>
           <img className="product-image" src={`http://localhost:8088/images/${id}`} alt={product.name} />
         </>
       )}

@@ -28,11 +28,7 @@ public class order {
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_items",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<product> orderItems;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 
 }

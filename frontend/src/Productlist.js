@@ -20,8 +20,18 @@ function ProductList() {
     fetchProducts();
   }, []);
 
+  const [quantities, setQuantities] = useState({});
+
   const handleAddToCart = (product) => {
-    addToCart(product);
+    const quantity = quantities[product.id] || 1;
+    addToCart({ ...product, quantity });
+  };
+
+  const handleQuantityChange = (productId, quantity) => {
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [productId]: quantity
+    }));
   };
 
   return (
@@ -31,8 +41,16 @@ function ProductList() {
         {products.map(product => (
           <li key={product.id} className="product-item">
             <div className="product-details">
-              <a className="product-name" href={`/products/${product.id}`}>{product.name}</a>
-              <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+              <img src={`http://localhost:8088/images/${product.imageId}`} alt={product.name} className="product-image" />
+              <div className="product-info">
+                <a className="product-name" href={`/products/${product.id}`}>{product.name}</a>
+                <div className="quantity-control">
+                  <button className="quantity-btn" onClick={() => handleQuantityChange(product.id, (quantities[product.id] || 1) - 1)}>-</button>
+                  <input className="quantity-input" type="number" value={quantities[product.id] || 1} onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))} />
+                  <button className="quantity-btn" onClick={() => handleQuantityChange(product.id, (quantities[product.id] || 1) + 1)}>+</button>
+                </div>
+                <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+              </div>
             </div>
           </li>
         ))}
