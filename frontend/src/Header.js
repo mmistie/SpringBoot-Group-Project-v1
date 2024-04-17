@@ -1,36 +1,33 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from './CartContext';
+import './App.css'; 
 
 function Header() {
   const { cart } = useCart();
   const location = useLocation();
 
   const handleHomeClick = () => {
-    // Check if the current location is already the home page
     if (location.pathname === '/') {
-      // If already on the home page, do nothing
       return;
     }
   };
 
   return (
-    <header>
-      <h1>My Online Store</h1>
+    <header className="header-container">
+      <h1 className="store-title">My Online Store</h1>
       <nav>
-        <ul>
-          {/* Use a button for Home link */}
+        <ul className="nav-links">
           <li>
-            {/* Add onClick event to handle Home click */}
-            <button onClick={handleHomeClick}><Link to="/">Home</Link></button>
+            <button className="home-button" onClick={handleHomeClick}><Link to="/">Home</Link></button>
           </li>
-          <li><Link to="/checkout">Checkout</Link></li>
+          <li><Link to="/checkout" className="checkout-link">Checkout</Link></li>
         </ul>
       </nav>
-      <div>
+      <div className="cart-info">
         <span>Cart ({cart.length})</span>
         <Link to="/checkout">
-          <button>Place Order</button>
+          <button className="place-order-button">Place Order</button>
         </Link>
       </div>
     </header>

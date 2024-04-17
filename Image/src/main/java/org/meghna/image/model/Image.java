@@ -20,6 +20,7 @@ public class Image {
     @Setter
     @Getter
     @Lob
+    @Column(length = 1048576)
     private byte[] data;
 
 }

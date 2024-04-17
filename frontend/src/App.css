@@ -1,0 +1,146 @@
+.product-detail {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.loading, .error {
+  margin: 20px;
+  padding: 10px;
+  color: red;
+}
+
+.product-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  margin-bottom: 20px;
+}
+
+.product-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.checkout-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.error {
+  margin-bottom: 10px;
+  color: red;
+}
+
+.order-placed {
+  margin-bottom: 10px;
+  color: green;
+}
+
+.checkout-details {
+  margin-top: 20px;
+}
+
+.checkout-details h2 {
+  margin-bottom: 10px;
+}
+
+.place-order-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.place-order-btn:hover {
+  background-color: #0056b3;
+}
+
+
+.product-list-container {
+  margin: 20px;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-item {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-name {
+  text-decoration: none;
+  color: #333;
+}
+
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Header CSS */
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+nav ul li button, nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+nav ul li button:hover, nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.cart-info {
+  margin-left: 1rem;
+}
+
+.cart-info span {
+  font-weight: bold;
+}

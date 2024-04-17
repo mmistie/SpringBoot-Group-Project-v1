@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useCart } from './CartContext';
+import './App.css'; // Import your CSS file for styling
 
 function Checkout() {
   const { cart, clearCart } = useCart();
   const [error, setError] = useState(null);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handlePlaceOrder = async () => {
     try {
@@ -21,7 +23,8 @@ function Checkout() {
 
       const response = await axios.post('http://localhost:8081/orders', orderData);
       console.log('Order placed:', response.data);
-      clearCart(); // Clear the cart after placing the order
+      clearCart();
+      setOrderPlaced(true); // Set orderPlaced to true after successful order placement
     } catch (error) {
       console.error('Error placing order:', error);
     }
@@ -36,18 +39,24 @@ function Checkout() {
   };
 
   return (
-    <div>
+    <div className="checkout-container">
       <h1>Checkout</h1>
-      {error && <div>{error}</div>}
-      <div>
-        <h2>Cart Items</h2>
-        <ul>
-          {cart.map((product, index) => (
-            <li key={index}>{product.name} - Quantity: {product.quantity}</li>
-          ))}
-        </ul>
-      </div>
-      <button onClick={handlePlaceOrder}>Place Order</button>
+      {error && <div className="error">{error}</div>}
+      {orderPlaced ? (
+        <div className="order-placed">Thank you for your order! It has been placed successfully.</div>
+      ) : (
+        <div className="checkout-details">
+          <div>
+            <h2>Cart Items</h2>
+            <ul>
+              {cart.map((product, index) => (
+                <li key={index}>{product.name} - Quantity: {product.quantity}</li>
+              ))}
+            </ul>
+          </div>
+          <button className="place-order-btn" onClick={handlePlaceOrder}>Place Order</button>
+        </div>
+      )}
     </div>
   );
 }

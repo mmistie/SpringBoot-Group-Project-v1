@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCart } from './CartContext';
+import './App.css'; 
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -24,14 +25,14 @@ function ProductList() {
   };
 
   return (
-    <div>
+    <div className="product-list-container">
       <h1>Product List</h1>
-      <ul>
+      <ul className="product-list">
         {products.map(product => (
-          <li key={product.id}>
-            <div>
-              <a href={`/products/${product.id}`}>{product.name}</a>
-              <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+          <li key={product.id} className="product-item">
+            <div className="product-details">
+              <a className="product-name" href={`/products/${product.id}`}>{product.name}</a>
+              <button className="add-to-cart-btn" onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>
           </li>
         ))}
