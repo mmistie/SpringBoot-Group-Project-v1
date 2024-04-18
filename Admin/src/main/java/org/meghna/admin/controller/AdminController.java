@@ -1,6 +1,5 @@
 package org.meghna.admin.controller;
 
-import org.meghna.admin.service.AdminService;
 import org.meghna.orders.model.order;
 import org.meghna.orders.services.orderService;
 import org.meghna.products.model.product;
@@ -12,11 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/")
 public class AdminController {
-
-    @Autowired
-    private AdminService adminService;
 
     @Autowired
     private productservice productService;
@@ -44,7 +40,6 @@ public class AdminController {
         }
         product.setName(productDetails.getName());
         product.setPrice(productDetails.getPrice());
-        // Update other fields as needed
         product updatedProduct = productService.save(product);
         return ResponseEntity.ok(updatedProduct);
     }
@@ -55,7 +50,6 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
-    // Order management endpoints
 
     @GetMapping("/orders")
     public ResponseEntity<List<order>> getAllOrders() {

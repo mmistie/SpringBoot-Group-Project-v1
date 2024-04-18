@@ -9,6 +9,7 @@ import org.meghna.products.model.product;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList; // Import ArrayList
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,6 +30,6 @@ public class order {
     private BigDecimal totalPrice;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>(); // Initialize as empty list
 
 }

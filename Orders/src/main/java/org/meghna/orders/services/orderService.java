@@ -24,11 +24,15 @@ public class orderService {
 
     public order save(order order) {
         BigDecimal totalPrice = BigDecimal.ZERO;
+        List<OrderItem> orderItems = order.getOrderItems();
         for (OrderItem orderItem : order.getOrderItems()) {
             BigDecimal itemTotalPrice = orderItem.getProduct().getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()));
             totalPrice = totalPrice.add(itemTotalPrice);
+            // Set the order reference for each orderItem
+            orderItem.setOrder(order);
         }
         order.setTotalPrice(totalPrice);
+        order.setOrderItems(orderItems);
         return orderRepository.save(order);
     }
     public order findById(Long id) {
