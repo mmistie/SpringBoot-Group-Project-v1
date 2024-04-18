@@ -10,3 +10,11 @@ spring:
     show-sql: true
 server:
   port: 8083
+
+application:
+  name: admin-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

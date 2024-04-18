@@ -21,7 +21,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    @JsonBackReference // Prevent recursive nesting
+    @JsonBackReference
     private order order;
 
     @ManyToOne
